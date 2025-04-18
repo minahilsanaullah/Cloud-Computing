@@ -16,7 +16,7 @@ param vnetBetaInfraSubnetPrefix string = '10.200.1.0/24'
 param vnetBetaStorageSubnetPrefix string = '10.200.2.0/24'
 
 // Deploy first VNET
-module vnetAlpha './data/vnet.bicep' = {
+module vnetAlpha './Data/vnet.bicep' = {
   name: 'vnetAlphaDeployment'
   params: {
     vnetName: vnetAlphaName
@@ -28,7 +28,7 @@ module vnetAlpha './data/vnet.bicep' = {
 }
 
 // Deploy second VNET
-module vnetBeta './data/vnet.bicep' = {
+module vnetBeta './Data/vnet.bicep' = {
   name: 'vnetBetaDeployment'
   params: {
     vnetName: vnetBetaName
@@ -40,7 +40,7 @@ module vnetBeta './data/vnet.bicep' = {
 }
 
 // Create peering from vnetAlpha to vnetBeta
-module alphaToBetaPeering './data/vnet-peering.bicep' = {
+module alphaToBetaPeering './Data/vnet-peering.bicep' = {
   name: 'peeringAlphaToBeta'
   params: {
     sourceVnetName: vnetAlphaName
@@ -53,7 +53,7 @@ module alphaToBetaPeering './data/vnet-peering.bicep' = {
 }
 
 // Create peering from vnetBeta to vnetAlpha
-module betaToAlphaPeering './data/vnet-peering.bicep' = {
+module betaToAlphaPeering './Data/vnet-peering.bicep' = {
   name: 'peeringBetaToAlpha'
   params: {
     sourceVnetName: vnetBetaName
@@ -66,7 +66,7 @@ module betaToAlphaPeering './data/vnet-peering.bicep' = {
 }
 
 // Deploy VM in vnetAlpha
-module vmAlpha './data/vm.bicep' = {
+module vmAlpha './Data/vm.bicep' = {
   name: 'vmAlphaDeployment'
   params: {
     vmName: 'vmAlpha'
@@ -77,7 +77,7 @@ module vmAlpha './data/vm.bicep' = {
 }
 
 // Deploy VM in vnetBeta
-module vmBeta './data/vm.bicep' = {
+module vmBeta './Data/vm.bicep' = {
   name: 'vmBetaDeployment'
   params: {
     vmName: 'vmBeta'
@@ -88,7 +88,7 @@ module vmBeta './data/vm.bicep' = {
 }
 
 // Storage Account 1
-module storageAlpha './data/storage.bicep' = {
+module storageAlpha './Data/storage.bicep' = {
   name: 'storageAlphaDeployment'
   params: {
     storageAccountName: 'st${uniqueString(resourceGroup().id)}alpha'
@@ -97,7 +97,7 @@ module storageAlpha './data/storage.bicep' = {
 }
 
 // Storage Account 2
-module storageBeta './data/storage.bicep' = {
+module storageBeta './Data/storage.bicep' = {
   name: 'storageBetaDeployment'
   params: {
     storageAccountName: 'st${uniqueString(resourceGroup().id)}beta'
@@ -106,7 +106,7 @@ module storageBeta './data/storage.bicep' = {
 }
 
 // Monitoring
-module monitor './data/monitor.bicep' = {
+module monitor './Data/monitor.bicep' = {
   name: 'monitorAlphaDeployment'
   params: {
     location: location
